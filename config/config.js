@@ -3,7 +3,7 @@ require('dotenv').config();
 const config = {
     // Bot Settings
     botName: process.env.BOT_NAME || 'Bot Kelas SMA',
-    prefix: process.env.PREFIX || '.',
+    prefix: process.env.PREFIX || '!',
     timezone: process.env.TIMEZONE || 'Asia/Jakarta',
     
     // Database
