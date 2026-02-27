@@ -118,13 +118,12 @@ class WhatsAppBot {
             this.sock.ev.on('creds.update', saveCreds);
 
             // Message handler
-            this.sock.ev.on('messages.upsert', async (m) => {
-                if (m.type === 'notify') {
-                    for (const message of m.messages) {
-                        await MessageHandler.handle(this.sock, message);
-                    }
-                }
-            });
+            this.sock.ev.on('messages.upsert', async (event) => {
+  const msg = event.messages[0];
+  if (!msg.message) return;
+
+  console.log("Incoming message:", msg);
+});
 
             // Group participant updates
             this.sock.ev.on('group-participants.update', async (update) => {
