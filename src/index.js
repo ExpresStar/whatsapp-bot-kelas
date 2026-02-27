@@ -122,7 +122,7 @@ class WhatsAppBot {
   const msg = event.messages[0];
   if (!msg.message) return;
 
-const message =
+const textMessage =
   msg.message.conversation ||
   msg.message.extendedTextMessage?.text ||
   '';
@@ -134,17 +134,10 @@ const command = args.shift().slice(1).toLowerCase();
 
 console.log("Command:", command);
 
-                const message =
-  msg.message.conversation ||
-  msg.message.extendedTextMessage?.text ||
-  '';
 
-if (!message.startsWith('!')) return;
-
-const args = message.trim().split(/ +/);
-const command = args.shift().slice(1).toLowerCase();
-
-console.log("Command:", command);
+if (command === 'ping') {
+  await sock.sendMessage(msg.key.remoteJid, { text: 'Pong!' });
+}
 
   console.log("Incoming message:", msg);
 });
