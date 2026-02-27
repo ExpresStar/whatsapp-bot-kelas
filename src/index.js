@@ -134,6 +134,18 @@ const command = args.shift().slice(1).toLowerCase();
 
 console.log("Command:", command);
 
+                const message =
+  msg.message.conversation ||
+  msg.message.extendedTextMessage?.text ||
+  '';
+
+if (!message.startsWith('!')) return;
+
+const args = message.trim().split(/ +/);
+const command = args.shift().slice(1).toLowerCase();
+
+console.log("Command:", command);
+
   console.log("Incoming message:", msg);
 });
 
