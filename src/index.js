@@ -119,39 +119,25 @@ class WhatsAppBot {
 
             // Message handler
             this.sock.ev.on('messages.upsert', async (event) => {
-  const msg = event.messages[0];
-  if (!msg.message) return;
+  try {
+    const msg = event.messages[0];
+    if (!msg || !msg.message) return;
 
-const textMessage =
-  msg.message.conversation ||
-  msg.message.extendedTextMessage?.text ||
-  '';
+    const text =
+      msg.message.conversation ||
+      msg.message.extendedTextMessage?.text ||
+      '';
 
-if (!message.startsWith('!')) return;
+    console.log("TEXT:", text);
 
-const args = message.trim().split(/ +/);
-const command = args.shift().slice(1).toLowerCase();
-
-console.log("Command:", command);
-
-
-if (command === 'ping') {
-  await sock.sendMessage(msg.key.remoteJid, { text: 'Pong!' });
-}
-
-  console.log("Incoming message:", msg);
-});
-
-            // Group participant updates
-            this.sock.ev.on('group-participants.update', async (update) => {
-                await MessageHandler.handleGroupParticipantUpdate(this.sock, update);
-            });
-
-        } catch (error) {
-            logger.error('Connection error:', error.message);
-            throw error;
-        }
+    if (text === '!ping') {
+      await sock.sendMessage(msg.key.remoteJid, { text: 'Pong!' });
     }
+
+  } catch (err) {
+    console.log("ERROR:", err);
+  }
+});
 
     registerCommands() {
         logger.info('Registering commands...');
